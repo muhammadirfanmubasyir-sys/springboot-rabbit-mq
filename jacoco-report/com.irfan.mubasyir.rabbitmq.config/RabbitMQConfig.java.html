@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RabbitMQConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report"></a> &gt; <a href="index.source.html" class="el_package">com.irfan.mubasyir.rabbitmq.config</a> &gt; <span class="el_source">RabbitMQConfig.java</span></div><h1>RabbitMQConfig.java</h1><pre class="source lang-java linenums">package com.irfan.mubasyir.rabbitmq.config;
+
+import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+<span class="fc" id="L13">public class RabbitMQConfig {</span>
+    @Value(&quot;${rabbitmq.queue.name}&quot;) //created automatically by spring boot
+    private String queue;
+
+    @Value(&quot;${rabbitmq.json.queue.name}&quot;) //created automatically by spring boot
+    private String jsonQueue;
+
+    @Value(&quot;${rabbitmq.exchange.name}&quot;) //created automatically by spring boot
+    private String exchange;
+
+    @Value(&quot;${rabbitmq.json.exchange.name}&quot;) //created automatically by spring boot
+    private String jsonExchange;
+
+    @Value(&quot;${rabbitmq.routing.key}&quot;) //created automatically by spring boot
+    private String routingKey;
+
+    @Value(&quot;${rabbitmq.json.routing.key}&quot;) //created automatically by spring boot
+    private String jsonRoutingKey;
+
+    // spring bean for rabbitmq queue
+    @Bean
+    public Queue queue() {
+<span class="fc" id="L35">        return new Queue(queue);</span>
+    }
+
+    @Bean
+    public Queue jsonQueue() {
+<span class="fc" id="L40">        return new Queue(jsonQueue);</span>
+    }
+
+    // spring bean for rabbitmq exchange
+    @Bean
+    public TopicExchange exchange() {
+<span class="fc" id="L46">        return new TopicExchange(exchange);</span>
+    }
+
+
+    // binding between queue and exchange
+    @Bean
+    public Binding binding() {
+<span class="fc" id="L53">        return BindingBuilder.bind(queue())</span>
+<span class="fc" id="L54">                .to(exchange())</span>
+<span class="fc" id="L55">                .with(routingKey);</span>
+    }
+
+    @Bean
+    public Binding jsonBinding() {
+<span class="fc" id="L60">        return BindingBuilder.bind(jsonQueue())</span>
+<span class="fc" id="L61">                .to(exchange())</span>
+<span class="fc" id="L62">                .with(jsonRoutingKey);</span>
+    }
+
+    @Bean
+    public MessageConverter converter() {
+<span class="fc" id="L67">        return new JacksonJsonMessageConverter();</span>
+    }
+
+    @Bean
+    public AmqpTemplate amqpTemplate(ConnectionFactory connectionFactory) {
+<span class="fc" id="L72">        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);</span>
+<span class="fc" id="L73">        rabbitTemplate.setMessageConverter(converter());</span>
+
+<span class="fc" id="L75">        return rabbitTemplate;</span>
+    }
+
+    // ConnectionFactory
+    // RabbitTemplate
+    // RabbitAdmin
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

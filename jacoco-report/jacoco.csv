@@ -1,0 +1,8 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+,com.irfan.mubasyir.rabbitmq.consumer,RabbitMQJsonConsumer,0,12,0,0,0,4,0,3,0,3
+,com.irfan.mubasyir.rabbitmq.consumer,RabbitMQConsumer,0,12,0,0,0,4,0,3,0,3
+,com.irfan.mubasyir.rabbitmq,RabbitmqApplication,5,3,0,0,2,1,1,1,1,1
+,com.irfan.mubasyir.rabbitmq.controller,MessageController,0,14,0,0,0,4,0,2,0,2
+,com.irfan.mubasyir.rabbitmq.config,RabbitMQConfig,0,56,0,0,0,14,0,8,0,8
+,com.irfan.mubasyir.rabbitmq.publisher,RabbitMQProducer,0,17,0,0,0,4,0,2,0,2
+,com.irfan.mubasyir.rabbitmq.publisher,RabbitMQJsonProducer,0,17,0,0,0,4,0,2,0,2

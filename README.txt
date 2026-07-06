@@ -1,4 +1,4 @@
-docker run --rm -it -p 15672:15672 -p 5672:5672 rabbitmq:4.3.0-management
+docker run --rm -it -p 15672:15672 -p 5672:5672 -d rabbitmq:4.3.0-management
 
 RABBIT MQ MANAGEMENT
 user/pwd = guest/guest
@@ -25,3 +25,21 @@ GET : http://localhost:8080/api/v1/publish?message=SYUKUR
 RESPONSE: 200 OK : Message sent to Rabbit MQ...
 c.i.m.r.publisher.RabbitMQProducer       : Message sent => SYUKUR
 c.i.m.r.consumer.RabbitMQConsumer        : Received message -> SYUKUR
+--------------------------------------------
+ mvn clean verify => test 90%
+
+ jacoco plugin configuration in pom.xml
+==================================================================
+                        <element>BUNDLE</element>
+ 							<limits>
+ 								<limit>
+ 									<counter>LINE</counter>
+ 									<value>COVEREDRATIO</value>
+ 									<minimum>0.90</minimum>
+ 								</limit>
+ 							</limits>
+ =================================================
+  mvn test jacoco:report                                                                                                                                                      █
+                                                                                                                                            Context                              █
+ This runs all tests and generates the HTML report
+ at target/site/jacoco/index.html.
